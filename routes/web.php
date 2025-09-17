@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\BukuController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,3 +17,5 @@ Route::post('/login', function () {
 });
 
 Route::get('/posts', [PostController::class, 'index']);
+
+Route::get('/book', [BukuController::class,'index']);
