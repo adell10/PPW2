@@ -7,7 +7,6 @@ use App\Models\Book;
 
 class BukuController extends Controller
 {
-    // READ
     public function index(Request $request)
     {
         $penulis = $request->input('penulis', 'all');
@@ -38,14 +37,12 @@ class BukuController extends Controller
         return view("book.index", compact("books", "list_penulis", "penulis", "keyword", "statistik"));
     }
 
-    // UPDATE (form edit)
     public function edit($id)
     {
         $book = Book::findOrFail($id);
         return view("book.edit", compact("book"));
     }
 
-    // UPDATE (simpan perubahan)
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -60,8 +57,7 @@ class BukuController extends Controller
 
         return redirect()->route('books.index')->with('success', 'Data buku berhasil diperbarui!');
     }
-
-    // DELETE
+    
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
