@@ -34,32 +34,44 @@
     <h1 class="mb-4 text-center">Data Buku</h1>
 
     <table class="table table-bordered table-striped table-hover shadow-sm">
-        <thead class="table-light text-center">
+    <thead class="table-light text-center">
+        <tr>
+            <th>ID</th>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Harga</th>
+            <th>Tanggal Terbit</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse ($books as $book)
             <tr>
-                <th>ID</th>
-                <th>Judul</th>
-                <th>Penulis</th>
-                <th>Harga</th>
-                <th>Tanggal Terbit</th>
+                <td class="text-center">{{ $book->id }}</td>
+                <td>{{ $book->judul }}</td>
+                <td>{{ $book->penulis }}</td>
+                <td>Rp. {{ number_format($book->harga, 2, ',', '.') }}</td>
+                <td>{{ $book->tgl_terbit->format('d/m/Y') }}</td>
+                <td class="text-center">
+                    <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                    <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau dihapus?')">
+                            Hapus
+                        </button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @forelse ($books as $book)
-                <tr>
-                    <td class="text-center">{{ $book->id }}</td>
-                    <td>{{ $book->judul }}</td>
-                    <td>{{ $book->penulis }}</td>
-                    <td>Rp. {{ number_format($book->harga, 2, ',', '.') }}</td>
-                    <td>{{ $book->tgl_terbit->format('d/m/Y') }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="text-center text-danger">
-                        Tidak ada judul buku yang ditemukan.
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
+        @empty
+            <tr>
+                <td colspan="6" class="text-center text-danger">
+                    Tidak ada judul buku yang ditemukan.
+                </td>
+            </tr>
+        @endforelse
+    </tbody>
     </table>
 
      <div class="card mt-4">

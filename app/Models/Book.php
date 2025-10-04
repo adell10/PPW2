@@ -10,7 +10,15 @@ class Book extends Model
     use HasFactory;
 
     protected $table = 'books';
+
+    protected $fillable = [
+        'judul',
+        'penulis',
+        'harga',
+        'tgl_terbit',
+    ];
+
     protected $casts = [
-        'tgl_terbit'=> 'datetime',
+        'tgl_terbit' => 'datetime',
     ];
 }
